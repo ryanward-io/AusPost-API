@@ -9,22 +9,16 @@ auspostKey = "XXX"
 DPID = 54516251
 
 def getAddress(_DPID):
-	auspostURL = "https://digitalapi.auspost.com.au/address-lookup/v1/addresses/" + str(_DPID) + "/detail"
-	head = {'AUTH-KEY': auspostKey}
-  
-  print("Requesting DPID from Australia Post for " + str(DPID))
-	r = requests.get(auspostURL, headers=head)
-	
-	if r.status_code == 200:
-		rJSON = r.json()
-	
-		for x in rJSON['data']:
-			print (x, ':', rJSON['data'][x])
-		
-	else:
-		print("Error: " + str(r.status_code))
-		print(r.text)
-		
-	return r
+    auspostURL = "https://digitalapi.auspost.com.au/address-lookup/v1/addresses/" + str(_DPID) + "/detail"
+    head = {'AUTH-KEY': auspostKey}
+    r = requests.get(auspostURL, headers=head)
+    if r.status_code == 200:
+        rJSON = r.json()
+        for x in rJSON['data']:
+            print (x, ':', rJSON['data'][x])
+    else:
+        print("Error: " + str(r.status_code))
+	print(r.text)
+    return r
 
 myAddress = getAddress(DPID)
